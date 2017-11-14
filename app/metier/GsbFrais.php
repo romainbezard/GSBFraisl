@@ -250,5 +250,11 @@ public function getInfosVisiteur($login, $mdp){
 		where fichefrais.idvisiteur = :idVisiteur and fichefrais.mois = :mois";
 		DB::update($req, ['etat'=>$etat, 'idVisiteur'=>$idVisiteur, 'mois'=>$mois]);
 	}
+        
+        public function setNouveauMdp($mdp, $login){
+            $req = "update visiteur set mdp=:mdp where login = :login";
+            DB::update($req,['mdp'=>$mdp, 'login'=>$login]);
+        }
+
 }
 ?>

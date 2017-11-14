@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-{!! Form::open(['url' => 'login']) !!}  
+{!! Form::open(['url' => 'ChangePassword']) !!}  
 <div class="col-md-12 well well-md">
     <center><h1>Modification de mot de passe</h1></center>
     <div class="form-horizontal">     
