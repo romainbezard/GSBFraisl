@@ -56,3 +56,8 @@ Route::get('getRetour/{retour}', function($retour){
     return redirect("/".$retour);
 });
 
+// Afficher le formulaire de modif MDP
+Route::get('/ChangePassword', 'ChangePasswordController@afficheformModifMdp');
+
+// Modifier MDP
+Route::post('/ChangePassword','ChangePasswordController@verifMdp');

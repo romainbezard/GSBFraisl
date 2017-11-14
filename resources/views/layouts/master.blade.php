@@ -47,6 +47,9 @@
                         <ul class="nav navbar-nav navbar-right">                             
                             <li><a href="{{ url('/Logout') }}" data-toggle="collapse" data-target=".navbar-collapse.in">Se déconnecter</a></li>
                         </ul> 
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ url('/ChangePassword')}}">Changer de mot de passe</a></li>
+                        </ul>
                     </div> 
  @endif 
                 </div><!--/.container-fluid -->
