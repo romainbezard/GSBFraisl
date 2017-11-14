@@ -37,7 +37,11 @@ class ChangePasswordController extends Controller
                 // Modifié le mdp dans la BDD
                 $pwd->setNouveauMdp($nouveauMdp,$login);
                 return redirect()->back()->with('status','Mise à jour effectuée');
-            }else{
+            }else if($nouveauMdp == $mdp){
+                $erreur = "Mot de passe identique à l'ancien";
+                return view('formModMDP', compact('erruer'));
+            }
+            else{
                 // return Mots de passe différents
                 $erreur = "Mot de passe différents";
                 return view('formModMDP',compact('erreur'));
