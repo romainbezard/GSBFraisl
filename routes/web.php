@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 // Afficher le formulaire d'authentification 
-Route::get('/getLogin', 'ConnexionController@getLogin');
+Route::get('/getLogin', 'ConnexionController@getLogin');  
 
 // Authentifie le visiteur à partir du login et mdp saisis
 Route::post('/login', 'ConnexionController@logIn');
