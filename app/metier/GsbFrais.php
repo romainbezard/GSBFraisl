@@ -255,6 +255,20 @@ public function getInfosVisiteur($login, $mdp){
             $req = "update visiteur set mdp=:mdp where login = :login";
             DB::update($req,['mdp'=>$mdp, 'login'=>$login]);
         }
+        
+/*
+ * Toutes les méthodes de valider fiche frais
+ */
+        
+        public function getVisiteurEtatCloture($etat){
+            $req = "select DISTINCT * from visiteur inner join fichefrais on visiteur.id = fichefrais.idVisiteur where idEtat = :etat order by nom ASC";
+            $lesLignes = DB::select($req,['etat'=>$etat]);
+            return $lesLignes;
+        }
+        
+        public function getFicheVisiteur($visiteur){
+            
+        }
 
 }
 ?>

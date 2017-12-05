@@ -61,3 +61,14 @@ Route::get('/ChangePassword', 'ChangePasswordController@afficheformModifMdp');
 
 // Modifier MDP
 Route::post('/ChangePassword','ChangePasswordController@verifMdp');
+
+
+/* MODIFICATION ROMAIN BEZARD */
+
+// Afficher les visiteurs avec les frais à l'état clôturé
+Route::get('/ValiderFicheFrais','ValiderFicheFraisController@afficheUtilisateur');
+
+// Affiche les fiches de l'utilisateurs
+Route::post('/AfficheFiche','ValiderFicheFraisController@afficheFrais');
+
+/******************************/
