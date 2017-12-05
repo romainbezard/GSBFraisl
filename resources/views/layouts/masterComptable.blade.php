@@ -51,7 +51,6 @@
                         </ul> 
                         <ul class="nav navbar-nav">
                             <li><a href="{{ url('/ChangePassword')}}">Changer de mot de passe</a></li>
-                            <li><a href="{{ url('/ChangePassword')}}">Modifier mes informations</a></li>
                         </ul>
                     </div> 
  @endif 

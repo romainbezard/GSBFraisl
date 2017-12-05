@@ -61,3 +61,9 @@ Route::get('/ChangePassword', 'ChangePasswordController@afficheformModifMdp');
 
 // Modifier MDP
 Route::post('/ChangePassword','ChangePasswordController@verifMdp');
+
+//Afficher le formulaire de modif Informations
+Route::get('/ChangeInformations', 'ChangeInformationsController@afficheformModifInformations');
+
+//Modifier Information
+Route::post('/ChangeInformations', 'ChangeInformationsController@modifInformations');

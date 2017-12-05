@@ -6,7 +6,55 @@ use Illuminate\Support\Facades\DB;
 /** 
  * Classe d'accès aux données. 
  */
-class GsbFrais{   		
+class GsbFrais{   
+/**
+ * Modification de l'adresse du visiteur
+ 
+ * @param $id
+*/
+public function modifAdresse($id, $adresse){
+        $req = "UPDATE visiteur 
+            SET visiteur.adresse = :adresse
+            WHERE visiteur.id = :id";
+        $ligne = DB::select($req, ['id'=>$id, 'adresse'=>$adresse]);
+        return $ligne;
+}    
+/**
+ * Modification du numéro du visiteur
+ 
+ * @param $id
+*/
+public function modifNumTel($id, $numTel){
+        $req = "UPDATE visiteur 
+            SET visiteur.numTel = :numTel
+            WHERE visiteur.id = :id";
+        $ligne = DB::select($req, ['id'=>$id, 'numTel'=>$numTel]);
+        return $ligne;
+}    
+/**
+ * Modification de l'email du visiteur
+ 
+ * @param $id
+*/
+public function modifEmail($id, $email){
+        $req = "UPDATE visiteur 
+            SET visiteur.email = :email
+            WHERE visiteur.id = :id";
+        $ligne = DB::select($req, ['id'=>$id, 'email'=>$email]);
+        return $ligne;
+}    
+    /**
+ * Retourne les informations d'un visiteur
+ 
+ * @param $id
+ * @return l'adresse, le numéro de téléphone et l'email
+*/
+public function getInfosVisiteur2($id){
+        $req = "select visiteur.adresse as adresse, visiteur.numTel as NumeroDeTelephone, visiteur.email as email from visiteur 
+        where visiteur.id=:id";
+        $ligne = DB::select($req, ['id'=>$id]);
+        return $ligne;
+}    
 /**
  * Retourne les informations d'un visiteur
  
