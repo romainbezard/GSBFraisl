@@ -146,7 +146,10 @@ public function getInfosVisiteur($login, $mdp){
 		$dernierMois = $this->dernierMoisSaisi($idVisiteur);
 		$laDerniereFiche = $this->getLesInfosFicheFrais($idVisiteur,$dernierMois);
 		if($laDerniereFiche->idEtat=='CR'){
-				$this->majEtatFicheFrais($idVisiteur, $dernierMois,'CL');
+                    
+                    // Clôture du Mois
+                    $this->clotureDuDernierMois($dernierMois, $idVisiteur);
+                    //$this->majEtatFicheFrais($idVisiteur, $dernierMois,'CL');
 				
 		}
 		$req = "insert into fichefrais(idvisiteur,mois,nbJustificatifs,montantValide,dateModif,idEtat) 
@@ -160,6 +163,31 @@ public function getInfosVisiteur($login, $mdp){
 			DB::insert($req, ['idVisiteur'=>$idVisiteur, 'mois'=>$mois, 'unIdFrais'=>$unIdFrais]);
 		 }
 	}
+        
+           // Fonction de Somme des Frais (Hors Forfait aussi) du Mois Dernier
+    public function clotureDuDernierMois($dernierMois,$idVisiteur)
+    {
+        $req = "Select sum(quantite*montant) as montantFrais From lignefraisforfait Inner Join fraisforfait On lignefraisforfait.idFraisForfait = fraisforfait.id
+                Where mois =:dernierMois and idVisiteur =:visiteur";
+        $req2 = "Select Sum(montant)as montantHors From lignefraishorsforfait Where mois = :dernierMois and idVisiteur = :visiteur ";
+        
+        $LignesForfait = DB::select($req,['dernierMois'=>$dernierMois, "visiteur"=>$idVisiteur]);
+        $SommeHorsForfait = DB::select($req2,['dernierMois'=>$dernierMois, "visiteur"=>$idVisiteur]);
+        
+        $Summ = $LignesForfait[0]->montantFrais;
+        $SummHors = $SommeHorsForfait[0]->montantHors;
+        
+        $total = $Summ+$SummHors;
+        
+        //Mise à jour de la FicheFrais
+        $req3 = "Update fichefrais 
+                 Set montantValide = :total, idEtat = 'CL'
+                 Where idVisiteur = :visiteur and mois = :mois";
+        
+        Db::update($req3,["total"=>$total,"visiteur"=>$idVisiteur,"mois"=>$dernierMois]);
+    }
+        
+        
 /**
  * Crée un nouveau frais hors forfait pour un visiteur un mois donné
  * à partir des informations fournies en paramètre

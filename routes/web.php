@@ -61,3 +61,7 @@ Route::get('/ChangePassword', 'ChangePasswordController@afficheformModifMdp');
 
 // Modifier MDP
 Route::post('/ChangePassword','ChangePasswordController@verifMdp');
+
+Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
+
+Route::post('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');

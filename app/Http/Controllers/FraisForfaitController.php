@@ -52,5 +52,5 @@ class FraisForfaitController extends Controller
 //        return view('formSaisiFrais', compact('lesFrais', 'mois', 'erreur'));
     }
 
-  
+    
 }
