@@ -7,10 +7,61 @@ use Illuminate\Support\Facades\DB;
  * Classe d'accès aux données. 
  */
 class GsbFrais{   
+    
+/**
+ * Retourne tout les id existants
+ 
+ *
+*/
+public function getLesId(){
+        $req = "SELECT id FROM visiteur";
+        $ligne = DB::select($req);
+        return $ligne;
+}       
+    
+/**
+ * Ajout d'un visiteur
+ 
+ * @param $id, $nom, $prenom, $adresse, $codePostal, $ville, $dateEmbauche, $numTel, $email
+*/
+public function ajouterVisiteur($id, $nom, $prenom, $login, $mdp, $adresse, $codePostal, $ville, $dateEmbauche, $numTel, $email){
+        $req = "INSERT INTO visiteur(id, nom, prenom, login, mdp, adresse, cp, ville, 
+            dateEmbauche, Statut, numTel, email) VALUES (:id,:nom, :prenom, :login, :mdp, :adresse, :codePostal, :ville, :dateEmbauche, null,
+            :numTel, :email)";
+        DB::select($req, ['id'=>$id, 'nom'=>$nom, 'prenom'=>$prenom, 'login'=>$login, 'mdp'=>$mdp, 'adresse'=>$adresse, 'codePostal'=>$codePostal, 'ville'=>$ville, 
+            'dateEmbauche'=>$dateEmbauche,'numTel'=>$numTel, 'email'=>$email,]);
+}        
+    
+/**
+ * Modification de la ville du visiteur
+ 
+ * @param $id, $ville
+*/
+public function modifVille($id, $ville){
+        $req = "UPDATE visiteur 
+            SET visiteur.ville = :ville
+            WHERE visiteur.id = :id";
+        $ligne = DB::select($req, ['id'=>$id, 'ville'=>$ville]);
+        return $ligne;
+}    
+
 /**
  * Modification de l'adresse du visiteur
  
- * @param $id
+ * @param $id, $codePostal
+*/
+public function modifCodePostal($id, $cp){
+        $req = "UPDATE visiteur 
+            SET visiteur.cp = :cp
+            WHERE visiteur.id = :id";
+        $ligne = DB::select($req, ['id'=>$id, 'cp'=>$cp]);
+        return $ligne;
+}    
+
+/**
+ * Modification de l'adresse du visiteur
+ 
+ * @param $id, $adresse
 */
 public function modifAdresse($id, $adresse){
         $req = "UPDATE visiteur 
@@ -22,7 +73,7 @@ public function modifAdresse($id, $adresse){
 /**
  * Modification du numéro du visiteur
  
- * @param $id
+ * @param $id, $numTel
 */
 public function modifNumTel($id, $numTel){
         $req = "UPDATE visiteur 
@@ -34,7 +85,7 @@ public function modifNumTel($id, $numTel){
 /**
  * Modification de l'email du visiteur
  
- * @param $id
+ * @param $id, $email
 */
 public function modifEmail($id, $email){
         $req = "UPDATE visiteur 
@@ -50,7 +101,8 @@ public function modifEmail($id, $email){
  * @return l'adresse, le numéro de téléphone et l'email
 */
 public function getInfosVisiteur2($id){
-        $req = "select visiteur.adresse as adresse, visiteur.numTel as NumeroDeTelephone, visiteur.email as email from visiteur 
+        $req = "select visiteur.adresse as adresse, visiteur.numTel as NumeroDeTelephone, visiteur.email as email, 
+            visiteur.cp as codePostal, visiteur.ville as ville from visiteur 
         where visiteur.id=:id";
         $ligne = DB::select($req, ['id'=>$id]);
         return $ligne;

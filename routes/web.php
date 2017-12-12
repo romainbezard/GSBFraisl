@@ -75,8 +75,15 @@ Route::post('/AfficheFiche','ValiderFicheFraisController@afficheFrais');
 //Afficher le formulaire de modif Informations
 Route::get('/ChangeInformations', 'ChangeInformationsController@afficheformModifInformations');
 
-//Modifier Information
+//Modifier Informations
 Route::post('/ChangeInformations', 'ChangeInformationsController@modifInformations');
-Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
 
+//Afficher le formulaire de "Création d'un visteur" pour le comptable
+Route ::get('/creerNouveauVisiteur', 'CreerVisiteurController@afficheformCreerVisiteur');
+
+//Créer un nouveau visiteur (Comptable)
+Route::post('/creerNouveauVisiteur', 'CreerVisiteurController@creerUnNouveauVisiteur');
+
+//Suivre fiche frais (Charles)
+Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
 Route::post('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
