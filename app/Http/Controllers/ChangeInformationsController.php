@@ -43,8 +43,9 @@ class ChangeInformationsController extends Controller
             $pwd->modifEmail($id, $email);  
         }
         
-        $message = "Modification bien faite !";
-        return view('home', compact('message'));
+        //$message = "Modification bien faite !";
+        return view('home');
+        // compact('message')
     }
     
 }
