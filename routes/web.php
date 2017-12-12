@@ -77,6 +77,10 @@ Route::get('/ChangeInformations', 'ChangeInformationsController@afficheformModif
 
 //Modifier Information
 Route::post('/ChangeInformations', 'ChangeInformationsController@modifInformations');
-Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
 
-Route::post('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
+// Accès Page SuivreFicheFrais
+Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
+Route::post('/SuivreFicheFrais','SuivreFicheFraisController@getFichesVisiteur');
+
+// Accès Détails des FicheFrais
+Route::get('/DetailsFicheFrais','/DetailsFicheFraisController@affichageListeFiche');

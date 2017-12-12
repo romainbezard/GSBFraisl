@@ -342,9 +342,34 @@ public function getInfosVisiteur($login, $mdp){
             return $lesLignes;
         }
         
-        public function getFicheVisiteur($visiteur){
+        public function getListeVisiteur()
+        {
+            $req = "Select Distinct nom, prenom,id From visiteur Inner Join fichefrais On visiteur.id = fichefrais.idVisiteur
+                   Where fichefrais.idEtat in ('RB','VA') ";
+            $resultat = DB::select($req);
+            return $resultat;
+        }
+        
+        public function getFichesVisiteur($visiteur){
             
+            $year = date('y');
+            $year = $year -1;
+            $month = date('m');
+            
+            $date = $year.$month;
+            
+            $req="Select * from fichefrais where idVisiteur = :visiteur and mois >= :mois";
+            $resultat = DB::select($req,['visiteur'=>$visiteur,'mois'=>$date]);
+            
+            return $resultat;
         }
 
+        public function getDetailFiches($idVisiteur,$mois)
+        {
+            $req = "Select * From lignefraisforfait lignefraishorsforfait  where mois = :mois and idVisiteur = :visiteur";
+            $ListeFrais = DB::select($req, ['mois'=>$mois,'visiteur'=>$idVisiteur]);
+            return $ListeFrais;
+        }
+        
 }
 ?>
