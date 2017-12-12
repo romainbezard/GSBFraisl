@@ -389,13 +389,28 @@ public function getInfosVisiteur($login, $mdp){
  */
         
         public function getVisiteurEtatCloture($etat){
-            $req = "select DISTINCT * from visiteur inner join fichefrais on visiteur.id = fichefrais.idVisiteur where idEtat = :etat order by nom ASC";
+            $req = "select idVisiteur, nom, prenom, mois, montantValide, nbJustificatifs, dateModif "
+                    . "from visiteur inner join fichefrais on visiteur.id = fichefrais.idVisiteur "
+                    . "where idEtat = :etat order by nom ASC";
             $lesLignes = DB::select($req,['etat'=>$etat]);
             return $lesLignes;
         }
         
-        public function getFicheVisiteur($visiteur){
-            
+        public function getFicheVisiteur($id, $mois){
+            $req = "select quantite, idFraisForfait from lignefraisforfait where idVisiteur = :id and mois = :mois";
+            $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
+            return $lesLignes;
+        }
+        
+        public function getFicheHfVisiteur($id, $mois){
+        $req = "select libelle, date, montant from lignefraishorsforfait where idVisiteur = :id and mois = :mois and ISNULL(Suppr)";
+        $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
+        return $lesLignes;
+        }
+        
+        public function valideFicheFrais($id, $mois){
+            $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
+            DB::update($req,['id'=>$id, 'mois'=>$mois]);
         }
 
 }
