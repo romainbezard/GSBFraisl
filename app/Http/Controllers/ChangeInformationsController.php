@@ -17,7 +17,8 @@ class ChangeInformationsController extends Controller
         Session::put('email', $ligne['email']);*/
         //$adresse = $ligne['adresse'];
         $erreur = "";
-        return view('formModifInformations', compact('erreur', 'ligne'));        
+        $message = "";
+        return view('formModifInformations', compact('erreur', 'ligne', 'message'));        
     }
     
     public function modifInformations(Request $request)
@@ -29,6 +30,8 @@ class ChangeInformationsController extends Controller
         $adresse = $request->input('adresse');
         $numTel = $request->input('numTel');
         $email = $request->input('email');
+        $cp = $request->input('codePostal');
+        $ville = $request->input('ville');
         
         if($ligne[0]->adresse != $adresse && $adresse != null)
         {
@@ -41,11 +44,19 @@ class ChangeInformationsController extends Controller
         else if($ligne[0]->email != $email && $email != null)
         {
             $pwd->modifEmail($id, $email);  
-        }
+        } 
+        else if($ligne[0]->codePostal != $cp && $cp != null)
+        {
+            $pwd->modifCodePostal($id, $cp);  
+        } 
+        else if($ligne[0]->ville != $ville && $ville != null)
+        {
+            $pwd->modifVille($id, $ville);  
+        } 
         
-        //$message = "Modification bien faite !";
-        return view('home');
-        // compact('message')
+        $message = "Modification(s) bien effectuée !";
+        $erreur = "";
+        return view('formModifInformations', compact('erreur', 'ligne', 'message'));
     }
     
 }

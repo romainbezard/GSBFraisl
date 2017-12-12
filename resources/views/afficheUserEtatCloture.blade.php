@@ -1,15 +1,15 @@
 @extends('layouts.masterComptable')
 @section('content')
-<!-- FAIRE LE FORMULAIRE -->
 <div>
         <table class="table table-bordered table-striped table-responsive">
             @foreach($resultat as $lesEtats)
+                @if($lesEtats->nom != null) <!-- A FAIRE -->
                 <tr>
-                  <td name = "user">
-                      <input type="text" name="UserName" value="{{$lesEtats->nom}}" readonly="true" style='background:khaki'>
-                      <input type="text" value="{{$lesEtats->prenom}}" readonly="true" style='background:khaki'>
+                  <td>
+                      <input type="text" name="UserName"  value="{{$lesEtats->nom}}" readonly="true" style='background:khaki'>
+                      <input type="text" name ="UserSurName" value="{{$lesEtats->prenom}}" readonly="true" style='background:khaki'>
                       <div style="text-align:right">
-                          <a href = "{{url('/AfficheFiche')}}"><input type ="button" class="btn btn-primary" value="Afficher fiche"></a>
+                          <a href="{{ url('/AfficheFicheUser')}}/{{$lesEtats->idVisiteur}}/{{$lesEtats->mois}}/{{$lesEtats->nbJustificatifs}}/{{$lesEtats->dateModif}}/{{$lesEtats->montantValide}}"><input type ="submit" class="btn btn-primary" value="Afficher fiche"></a>
                       </div>
                     <ul>
                         <p>Mois clôturés :</p> 
@@ -21,8 +21,15 @@
                     </ul>
                   </td> 
                 </tr>
+                @else
+                    <h1>Aucune fiche de frais à valider</h1>
+                @endif
             @endforeach
         </table>
 </div>
-<!-- FERMER LE FORMULAIRE -->
+@if (session('status'))
+<div class="alert alert-success">
+    {{ session('status') }}
+</div>
+@endif
 @stop
