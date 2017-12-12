@@ -63,13 +63,16 @@ Route::get('/ChangePassword', 'ChangePasswordController@afficheformModifMdp');
 Route::post('/ChangePassword','ChangePasswordController@verifMdp');
 
 
-/* MODIFICATION ROMAIN BEZARD */
+/* MODIFICATION  */
 
 // Afficher les visiteurs avec les frais à l'état clôturé
 Route::get('/ValiderFicheFrais','ValiderFicheFraisController@afficheUtilisateur');
 
 // Affiche les fiches de l'utilisateurs
-Route::post('/AfficheFiche','ValiderFicheFraisController@afficheFrais');
+Route::get('/AfficheFicheUser/{id}/{mois}/{nbJust}/{dateModif}/{montantValide}','ValiderFicheFraisController@afficheFrais');
+
+// Valide fiche frais
+Route::get('/ValideFiche/{id}/{mois}','ValiderFicheFraisController@valideFiche');
 
 /******************************/
 //Afficher le formulaire de modif Informations
@@ -77,6 +80,10 @@ Route::get('/ChangeInformations', 'ChangeInformationsController@afficheformModif
 
 //Modifier Information
 Route::post('/ChangeInformations', 'ChangeInformationsController@modifInformations');
+
+/******************************/
 Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
 
 Route::post('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
+
+/******************************/

@@ -16,12 +16,22 @@ class ValiderFicheFraisController extends Controller
         
         $resultat = $gsbFrais->getVisiteurEtatCloture('CL');
         
-        
         return view('afficheUserEtatCloture',compact('resultat'));
     }
     
-    public function afficheFrais(Request $request){
-        $nom = $request->input('UserName');
-        echo $nom;
+    public function afficheFrais($id, $mois, $nbJust, $dateModif, $montantValide){
+        $gsbFrais = new GsbFrais();
+        $resultat = $gsbFrais->getFicheVisiteur($id, $mois);
+        $ficheHf = $gsbFrais->getFicheHfVisiteur($id, $mois);
+        $total = 0;
+        
+        return view('afficheFicheUser',compact('resultat','mois','id','nbJust','dateModif','montantValide', 'ficheHf','total'));
+    }
+    
+    public function valideFiche($id, $mois){
+        $gsbFrais = new GsbFrais();
+        $gsbFrais->valideFicheFrais($id, $mois);
+        Session::put('status', 'Validation effectuée');
+        return redirect('/ValiderFicheFrais');
     }
 }
