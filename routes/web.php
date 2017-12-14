@@ -74,6 +74,10 @@ Route::get('/AfficheFicheUser/{id}/{mois}/{nbJust}/{dateModif}/{montantValide}',
 // Valide fiche frais
 Route::get('/ValideFiche/{id}/{mois}','ValiderFicheFraisController@valideFiche');
 
+// Modifier montant fiche frais
+
+Route::post('/ModifierMontantFiche','ValiderFicheFraisController@modifierFiche');
+
 /******************************/
 //Afficher le formulaire de modif Informations
 Route::get('/ChangeInformations', 'ChangeInformationsController@afficheformModifInformations');

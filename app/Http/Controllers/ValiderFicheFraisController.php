@@ -34,4 +34,9 @@ class ValiderFicheFraisController extends Controller
         Session::put('status', 'Validation effectuée');
         return redirect('/ValiderFicheFrais');
     }
+    
+    public function modifierFiche(Request $request){
+        $montant = $request->input('montant');
+        echo $montant;
+    }
 }

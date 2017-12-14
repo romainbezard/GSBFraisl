@@ -397,7 +397,7 @@ public function getInfosVisiteur($login, $mdp){
         }
         
         public function getFicheVisiteur($id, $mois){
-            $req = "select quantite, idFraisForfait from lignefraisforfait where idVisiteur = :id and mois = :mois";
+            $req = "select quantite, idFraisForfait, montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
             $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
             return $lesLignes;
         }
@@ -412,6 +412,8 @@ public function getInfosVisiteur($login, $mdp){
             $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
             DB::update($req,['id'=>$id, 'mois'=>$mois]);
         }
+        public function getListeVisiteur()
+        {
         
         /*public function getListeVisiteur(){
             $req = "Select Distinct nom, prenom,id From visiteur Inner Join fichefrais On visiteur.id = fichefrais.idVisiteur
