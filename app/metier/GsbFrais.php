@@ -411,15 +411,17 @@ public function getInfosVisiteur($login, $mdp){
         public function valideFicheFrais($id, $mois){
             $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
             DB::update($req,['id'=>$id, 'mois'=>$mois]);
-        public function getListeVisiteur()
-        {
+        }
+        
+        /*public function getListeVisiteur(){
             $req = "Select Distinct nom, prenom,id From visiteur Inner Join fichefrais On visiteur.id = fichefrais.idVisiteur
-                   Where fichefrais.idEtat in ('RB','VA') ";
+                   Where fichefrais.idEtat in ('RB','VA')Order by id,nom,prenom ";
             $resultat = DB::select($req);
             return $resultat;
         }
+        */
         
-        public function getFichesVisiteur($visiteur){
+        public function getFichesVisiteur(){
             
             $year = date('y');
             $year = $year -1;
@@ -427,13 +429,14 @@ public function getInfosVisiteur($login, $mdp){
             
             $date = $year.$month;
             
-            $req="Select * from fichefrais where idVisiteur = :visiteur and mois >= :mois";
-            $resultat = DB::select($req,['visiteur'=>$visiteur,'mois'=>$date]);
+            //$req="Select * from fichefrais where idVisiteur = :visiteur and mois >= :mois";
+            $req = "Select * from fichefrais Inner Join visiteur On idVisiteur = id Where mois >= :mois Order by idVisiteur,mois";
+            $ListeFiches = DB::select($req,['mois'=>$date]);
             
-            return $resultat;
+            return $ListeFiches;
         }
 
-        public function getDetailFiches($idVisiteur,$mois)
+        public function getDetailFiches($mois,$idVisiteur)
         {
             $req = "Select * From lignefraisforfait lignefraishorsforfait  where mois = :mois and idVisiteur = :visiteur";
             $ListeFrais = DB::select($req, ['mois'=>$mois,'visiteur'=>$idVisiteur]);
@@ -441,4 +444,4 @@ public function getInfosVisiteur($login, $mdp){
         }
         
 }
-?>
+

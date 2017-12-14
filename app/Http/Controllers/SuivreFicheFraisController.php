@@ -10,6 +10,7 @@ use App\metier\GsbFrais;
 
 class SuivreFicheFraisController extends Controller
 {
+    /*
     public function afficherformSuivreficheFrais()
     {
         $Frais = new GsbFrais();
@@ -18,18 +19,17 @@ class SuivreFicheFraisController extends Controller
         $erreur = "";
         return view('suivreFraisComptable',  compact('Liste','idVisiteur','erreur'));
     }
+    */
     
     public function getFichesVisiteur()
     {
 
-        $visiteur = $request->all();
-        print_r($visiteur);
+        //$visiteur = $request->all();
+        //§print_r($visiteur);
         $Frais = new GsbFrais();
-        $ListeFiches= $Frais->getFichesVisiteur($visiteur);
-        $Liste = $Frais->getListeVisiteur();
-        $idVisiteur = $visiteur;
+        $ListeFiches= $Frais->getFichesVisiteur();
         $erreur = "";
-        return view('suivreFraisComptable',  compact('Liste','idVisiteur','ListeFiches','erreur'));
+        return view('suivreFraisComptable',  compact('ListeFiches','erreur'));
     }
 
 }
