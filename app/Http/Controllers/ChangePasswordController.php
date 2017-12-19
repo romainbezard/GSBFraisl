@@ -22,9 +22,8 @@ class ChangePasswordController extends Controller
         $pwd = new GsbFrais();
         
         // Verif que mdp saisi = ancien mdp
-        $bonPwd = $pwd->getInfosVisiteur($login, $mdp);
+        $bonPwd = $pwd->verifMdp($login, $mdp);
         if(empty($bonPwd)){
-            // return Erreur mot de passe
             $erreur = "Erreur de mot de passe";
             return view('formModMDP',compact('erreur'));
         }else{
@@ -34,11 +33,19 @@ class ChangePasswordController extends Controller
             // Verif si les nouveaux mdp sont identiques 
             if($nouveauMdp == $confirmMdp){
                 // Modifié le mdp dans la BDD
-                $pwd->setNouveauMdp($nouveauMdp,$login);
-                return redirect()->back()->with('status','Mise à jour effectuée');
+                if (preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])#', $nouveauMdp)) {
+                    $erreur = 'Mot de passe conforme';
+                    $pwd->setNouveauMdp($nouveauMdp,$login);
+                    return redirect()->back()->with('status','Mise à jour effectuée');
+                }
+                else {
+                    $erreur = 'ERREUR : Mot de passe non conforme. (Il faut une majuscule et un chiffre obligatoirement !)';
+                     return view('formModMDP', compact('erreur'));
+               }	
+                
             }else if($nouveauMdp == $mdp){
                 $erreur = "Mot de passe identique à l'ancien";
-                return view('formModMDP', compact('erruer'));
+                return view('formModMDP', compact('erreur'));
             }
             else{
                 // return Mots de passe différents
