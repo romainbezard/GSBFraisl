@@ -72,7 +72,7 @@ Route::get('/ValiderFicheFrais','ValiderFicheFraisController@afficheUtilisateur'
 Route::get('/AfficheFicheUser/{id}/{mois}','ValiderFicheFraisController@afficheFrais');
 
 // Valide fiche frais
-Route::get('/ValideFiche/{id}/{mois}','ValiderFicheFraisController@valideFiche');
+Route::get('/ValideFiche/{id}/{mois}/{total}/{totalHf}','ValiderFicheFraisController@valideFiche');
 
 // Modifier montant fiche frais
 

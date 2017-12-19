@@ -435,9 +435,9 @@ public function verifMdp($login, $mdp){
         return $lesLignes;
         }
         
-        public function valideFicheFrais($id, $mois){
-            $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
-            DB::update($req,['id'=>$id, 'mois'=>$mois]);
+        public function valideFicheFrais($id, $mois, $montant){
+            $req = "update fichefrais set idEtat = 'VA', dateModif= now(), montantValide = :montant where idVisiteur = :id and mois = :mois";
+            DB::update($req,['id'=>$id, 'mois'=>$mois, 'montant'=>$montant]);
         }
            
         public function ModifierFicheFrais($quantite, $id, $mois, $idV){

@@ -45,7 +45,6 @@
             <td></td>
             <td>{{$total}}€</td>
         </tr>
-        <p hidden="true">{{$total = 0}}</p>
     </table>
     
     <table class="table table-bordered table-striped table-responsive">
@@ -60,7 +59,7 @@
         @foreach($ficheHf as $lesHorsForf)
         <tr>
             {!! Form::open(['url' => 'MettreMotif/' . $id . '/' . $mois]) !!}
-        <p hidden="true">{{$total += $lesHorsForf->montant}}</p>
+        <p hidden="true">{{$totalHf += $lesHorsForf->montant}}</p>
         <td><input type='text' name='idFiche' value='{{$lesHorsForf->id}}' readonly="true"></td>
         <td><input type='text' size="32px" name="libelle" value='{{$lesHorsForf->libelle}}' readonly="true"></td>
         <td><input type='text' name="date" value='{{$lesHorsForf->date}}' readonly="true"</td>
@@ -73,11 +72,11 @@
             <td>Montant total : </td>
             <td></td>
             <td></td>
-            <td>{{$total}}€</td>
+            <td>{{$totalHf}}€</td>
         </tr>
     </table>
 <div style="text-align: center;">
-    <a href="{{ url('/ValideFiche')}}/{{$id}}/{{$mois}}"><button class="btn btn-primary" >Valider</button></a>
+    <a href="{{ url('/ValideFiche')}}/{{$id}}/{{$mois}}/{{$total}}/{{$totalHf}}"><button class="btn btn-primary" >Valider</button></a>
 </div>
 @if (session('status'))
 <div class="alert alert-success">

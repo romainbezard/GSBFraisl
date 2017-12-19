@@ -25,13 +25,15 @@ class ValiderFicheFraisController extends Controller
         $ficheHf = $gsbFrais->getFicheHfVisiteur($id, $mois);
         $donnee = $gsbFrais->getDonnee($id, $mois);
         $total = 0;
+        $totalHf = 0;
         
-        return view('afficheFicheUser',compact('resultat','mois','id','donnee', 'ficheHf','total'));
+        return view('afficheFicheUser',compact('resultat','mois','id','donnee', 'ficheHf','total','totalHf'));
     }
     
-    public function valideFiche($id, $mois){
+    public function valideFiche($id, $mois, $total, $totalHf){
+        $montant = $total + $totalHf;
         $gsbFrais = new GsbFrais();
-        $gsbFrais->valideFicheFrais($id, $mois);
+        $gsbFrais->valideFicheFrais($id, $mois, $montant);
         Session::put('status', 'Validation effectuée');
         return redirect('/ValiderFicheFrais');
          //return redirect()->back()->with('status','Mise à jour effectuée');
