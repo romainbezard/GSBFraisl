@@ -1,7 +1,7 @@
 @extends('layouts.masterComptable')
 @section('content')
     <table class="table table-bordered table-striped table-responsive">
-        <h1>Fiche à validé</h1>
+       <h1>Fiche à validé</h1>
         <tr>
             <td>Visiteur</td>
             <td>Periode</td>
@@ -12,9 +12,11 @@
         <tr>
             <td>{{$id}}</td>
             <td>{{$mois}}</td>
-            <td>{{$nbJust}}</td>
-            <td>{{$montantValide}}€</td>
-            <td>{{$dateModif}}</td>
+            @foreach($donnee as $lesDonnees)
+                <td>{{$lesDonnees->nbJustificatifs}}</td>
+                <td>{{$lesDonnees->montantValide}}€</td>
+                <td>{{$lesDonnees->dateModif}}</td>
+            @endforeach
         </tr>
     </table>
     <table class="table table-bordered table-striped table-responsive">
@@ -49,6 +51,7 @@
     <table class="table table-bordered table-striped table-responsive">
         <h1>Liste des frais hors forfait</h1>
         <tr>
+            <td>ID</td>
             <td>Libellé</td>
             <td>Date</td>
             <td>Montant</td>
@@ -56,15 +59,19 @@
         </tr>
         @foreach($ficheHf as $lesHorsForf)
         <tr>
+            {!! Form::open(['url' => 'MettreMotif/' . $id . '/' . $mois]) !!}
         <p hidden="true">{{$total += $lesHorsForf->montant}}</p>
-            <td>{{$lesHorsForf->libelle}}</td>
-            <td>{{$lesHorsForf->date}}</td>
-            <td>{{$lesHorsForf->montant}}€</td>
-            <td><a href="{{ url('/MettreMotif')}}/{{$lesHorsForf->libelle}}/{{$id}}/{{$lesHorsForf->date}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <td><input type='text' name='idFiche' value='{{$lesHorsForf->id}}' readonly="true"></td>
+        <td><input type='text' size="32px" name="libelle" value='{{$lesHorsForf->libelle}}' readonly="true"></td>
+        <td><input type='text' name="date" value='{{$lesHorsForf->date}}' readonly="true"</td>
+        <td><input type='text' value='{{$lesHorsForf->montant}}€' readonly="true"</td>
+        <td><button type="submit"><span class="glyphicon glyphicon-remove"></span></button>
         </tr>
+            {!! Form::close() !!}
         @endforeach
         <tr>
             <td>Montant total : </td>
+            <td></td>
             <td></td>
             <td>{{$total}}€</td>
         </tr>
@@ -72,4 +79,9 @@
 <div style="text-align: center;">
     <a href="{{ url('/ValideFiche')}}/{{$id}}/{{$mois}}"><button class="btn btn-primary" >Valider</button></a>
 </div>
+@if (session('status'))
+<div class="alert alert-success">
+    {{ session('status') }}
+</div>
+@endif
 @stop

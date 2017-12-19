@@ -69,7 +69,7 @@ Route::post('/ChangePassword','ChangePasswordController@verifMdp');
 Route::get('/ValiderFicheFrais','ValiderFicheFraisController@afficheUtilisateur');
 
 // Affiche les fiches de l'utilisateurs
-Route::get('/AfficheFicheUser/{id}/{mois}/{nbJust}/{dateModif}/{montantValide}','ValiderFicheFraisController@afficheFrais');
+Route::get('/AfficheFicheUser/{id}/{mois}','ValiderFicheFraisController@afficheFrais');
 
 // Valide fiche frais
 Route::get('/ValideFiche/{id}/{mois}','ValiderFicheFraisController@valideFiche');
@@ -79,9 +79,9 @@ Route::get('/ValideFiche/{id}/{mois}','ValiderFicheFraisController@valideFiche')
 Route::post('/ModifierMontantFiche','ValiderFicheFraisController@modifierFiche');
 
 // Supprimer fiche frais hord forfait
-Route::get('/MettreMotif/{libelle}/{id}/{mois}','ValiderFicheFraisController@AfficherMotif');
-Route::post('/SupprimerFicheFrais', 'ValiderFicheFraisController@SupprimerFicheHorsForfait');
-Route::get('/AnnulerMotif', 'ValiderFicheFraisController@AnnuleMotif');
+Route::post('/MettreMotif/{id}/{mois}','ValiderFicheFraisController@AfficherMotif');
+Route::post('/SupprimerFicheFrais/{id}/{mois}', 'ValiderFicheFraisController@SupprimerFicheHorsForfait');
+Route::get('/AnnulerMotif/{id}/{mois}', 'ValiderFicheFraisController@AnnuleMotif');
 
 /******************************/
 //Afficher le formulaire de modif Informations

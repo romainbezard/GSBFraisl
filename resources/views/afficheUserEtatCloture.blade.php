@@ -9,7 +9,7 @@
                           <input type="text" name="UserName"  value="{{$lesEtats->nom}}" readonly="true" style='background:khaki'>
                           <input type="text" name ="UserSurName" value="{{$lesEtats->prenom}}" readonly="true" style='background:khaki'>
                           <div style="text-align:right">
-                              <a href="{{ url('/AfficheFicheUser')}}/{{$lesEtats->idVisiteur}}/{{$lesEtats->mois}}/{{$lesEtats->nbJustificatifs}}/{{$lesEtats->dateModif}}/{{$lesEtats->montantValide}}"><input type ="submit" class="btn btn-primary" value="Afficher fiche"></a>
+                              <a href="{{ url('/AfficheFicheUser')}}/{{$lesEtats->idVisiteur}}/{{$lesEtats->mois}}"><input type ="submit" class="btn btn-primary" value="Afficher fiche"></a>
                           </div>
                         <ul>
                             <p>Mois clôturés :</p> 
