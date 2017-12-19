@@ -60,10 +60,6 @@
                 <td> {{ $unFHFS->MotifsSuppr }} </td>
             </tr>
             @endforeach
-            <tr>
-                <td style="text-align: right"> Montant total :</td>
-                <td>{{$montantTotal}}</td>
-            </tr>
         </table>
         
         

@@ -133,7 +133,7 @@ public function getInfosVisiteur($login, $mdp){
 */
 	public function getLesFraisHorsForfait($idVisiteur,$mois){
 	    $req = "select * from lignefraishorsforfait where lignefraishorsforfait.idvisiteur =:idVisiteur 
-		and lignefraishorsforfait.mois = :mois ";	
+		and lignefraishorsforfait.mois = :mois and Suppr is null";	
             $lesLignes = DB::select($req, ['idVisiteur'=>$idVisiteur, 'mois'=>$mois]);
 //            for ($i=0; $i<$nbLignes; $i++){
 //                    $date = $lesLignes[$i]['date'];
@@ -144,7 +144,7 @@ public function getInfosVisiteur($login, $mdp){
         
         public function getLesFraisHorsForfaitSuppr($idVisiteur,$mois){
 	    $req = "select * from lignefraishorsforfait where lignefraishorsforfait.idvisiteur =:idVisiteur 
-		and lignefraishorsforfait.mois = :mois and Suppr != null";	
+		and lignefraishorsforfait.mois = :mois and Suppr is not null";	
             $lesLignes = DB::select($req, ['idVisiteur'=>$idVisiteur, 'mois'=>$mois]);
 //            for ($i=0; $i<$nbLignes; $i++){
 //                    $date = $lesLignes[$i]['date'];
@@ -407,8 +407,21 @@ public function getInfosVisiteur($login, $mdp){
             return $lesLignes;
         }
         
+        public function getFicheActuel($id, $mois){
+            $req = "select * from fichefrais inner join visiteur on fichefrais.idVisiteur = visiteur.id where idVisiteur = :id and mois = :mois";
+            $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
+            return $lesLignes;
+        }
+        
         public function getFicheVisiteur($id, $mois){
-            $req = "select idVisiteur,quantite, idFraisForfait, montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
+            $req = "select * from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
+            $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
+            return $lesLignes;
+        }
+        
+        
+        public function getFicheVisiteurAll($id, $mois){
+            $req = "select idVisiteur,quantite, idFraisForfait, montant, mois from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
             $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
             return $lesLignes;
         }
@@ -473,6 +486,14 @@ public function getInfosVisiteur($login, $mdp){
             $req = "Select * From lignefraishorsforfait   where mois = :mois and idVisiteur = :visiteur";
             $Fiche = DB::select($req, ['mois'=>$mois,'visiteur'=>$idVisiteur]);
             return $Fiche;
+        }
+        
+        public function getVisiteur($idVisiteur)
+        {
+            $req = "Select * From visiteur where id = :visiteur";
+            $vis = DB::select($req,['visiteur'=>$idVisiteur]);
+            $visiteur = $vis[0];
+            return $visiteur;
         }
 }
 
