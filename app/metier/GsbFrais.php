@@ -425,7 +425,8 @@ public function verifMdp($login, $mdp){
         
         public function getFicheForfait($id, $mois){
             $req = "select idVisiteur,quantite, idFraisForfait, montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
-        public function getFicheActuel($id, $mois){
+        
+            public function getFicheActuel($id, $mois){
             $req = "select * from fichefrais inner join visiteur on fichefrais.idVisiteur = visiteur.id where idVisiteur = :id and mois = :mois";
             $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
             return $lesLignes;
