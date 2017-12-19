@@ -425,12 +425,10 @@ public function verifMdp($login, $mdp){
         
         public function getFicheForfait($id, $mois){
             $req = "select idVisiteur,quantite, idFraisForfait, montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
-        
-            public function getFicheActuel($id, $mois){
-            $req = "select * from fichefrais inner join visiteur on fichefrais.idVisiteur = visiteur.id where idVisiteur = :id and mois = :mois";
             $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
             return $lesLignes;
         }
+        
         
         public function getFicheVisiteur($id, $mois){
             $req = "select * from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
@@ -451,9 +449,9 @@ public function verifMdp($login, $mdp){
         return $lesLignes;
         }
         
-        public function valideFicheFrais($id, $mois){
-            $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
-            DB::update($req,['id'=>$id, 'mois'=>$mois]);
+        public function valideFicheFrais($id, $mois, $montant){
+            $req = "update fichefrais set idEtat = 'VA', dateModif= now(), montantValide = :montant where idVisiteur = :id and mois = :mois";
+            DB::update($req,['id'=>$id, 'mois'=>$mois, 'montant'=>$montant]);
         }
            
         public function ModifierFicheFrais($quantite, $id, $mois, $idV){
@@ -520,6 +518,12 @@ public function verifMdp($login, $mdp){
             $vis = DB::select($req,['visiteur'=>$idVisiteur]);
             $visiteur = $vis[0];
             return $visiteur;
+        }
+        
+        public function getFicheActuel($id, $mois){
+            $req = "select * from fichefrais inner join visiteur on fichefrais.idVisiteur = visiteur.id where idVisiteur = :id and mois = :mois";
+            $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
+            return $lesLignes;
         }
 }
 
