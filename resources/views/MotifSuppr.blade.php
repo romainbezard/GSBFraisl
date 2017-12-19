@@ -4,7 +4,7 @@
         <table class="table table-bordered table-striped table-responsive">
         <h1>Mettre motif de suprresion</h1>
         <tr>
-            <td>Visiteur</td>
+            <td>ID</td>
             <td>Date</td>
             <td>Libelle</td>
             <td>Motif</td>

@@ -55,6 +55,7 @@ class ValiderFicheFraisController extends Controller
         $gsbFrais = new GsbFrais();
         
         $gsbFrais->SupprimerHorsForfait($libelle, $id, $date, $motif);
+        Session::put('status', 'Suppression effectuée');
         return $this->afficheFrais($idVisiteur, $mois);
         
     }
