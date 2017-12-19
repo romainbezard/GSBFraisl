@@ -15,28 +15,28 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Code Postal : </label>
             <div class="col-md-6 col-md-3">
-                <input type="number" name="codePostal" class="form-control" placeholder="{{$uneLigne->codePostal}}"  maxlength="5" pattern="[0-9]{,5}">
+                <input type="number" name="codePostal" class="form-control" pattern="[0-9]{5}" title="Code de 5 chiffres" placeholder="{{$uneLigne->codePostal}}"  maxlength="5" pattern="[0-9]{,5}">
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-md-3 control-label">Ville : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="ville" class="form-control" placeholder="{{$uneLigne->ville}}">
+                <input type="text" name="ville" class="form-control" pattern="[a-zA-Z ]{1,50}" title="Seulement des caractères alphabétiques" placeholder="{{$uneLigne->ville}}">
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-md-3 control-label">Email : </label>
             <div class="col-md-6 col-md-3">
-                <input type="email" name="email" class="form-control" placeholder="{{$uneLigne->email}}">
+                <input type="email" name="email" class="form-control" pattern="[a-zA-Z0-9_.-]{0,100}@[a-zA-Z.]{0,50}.[a-zA-Z.]{0,50}" title="Mettre une adresse valide telle que : celine.duclos@gmail.com (Doit contenir des chiffres et/ou lettres ainsi que des carctères spéciaux (-, _, .))" placeholder="{{$uneLigne->email}}">
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-md-3 control-label">Numéro de téléphone : </label>
             <div class="col-md-6 col-md-3">
-                <input type="number" name="numTel" class="form-control" placeholder="{{$uneLigne->NumeroDeTelephone}}" maxlength="10">
+                <input type="text" name="numTel" class="form-control" pattern="[0-9]{10}" placeholder="{{$uneLigne->NumeroDeTelephone}}" maxlength="10">
             </div>
         </div>
        

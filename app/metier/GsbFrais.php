@@ -13,9 +13,9 @@ class GsbFrais{
  
  *
 */
-public function getLesId(){
-        $req = "SELECT id FROM visiteur";
-        $ligne = DB::select($req);
+public function existVisiteur($id){
+        $req = "SELECT * FROM visiteur WHERE id = :id";
+        $ligne = DB::select($req, ['id'=>$id]);
         return $ligne;
 }       
     
@@ -423,6 +423,19 @@ public function getInfosVisiteur($login, $mdp){
             $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
             DB::update($req,['id'=>$id, 'mois'=>$mois]);
         }
+           
+        public function ModifierFicheFrais($montant, $id){
+            $req = "update fraisforfait set montant = :montant where id = :id";
+            DB::update($req,['montant'=>$montant, 'id'=>$id]);
+        }
+        
+        public function SupprimerHorsForfait($libelle, $id, $date, $motif){
+            $req = "update lignefraishorsforfait set Suppr = 1, MotifsSuppr = :motif where libelle= :libelle and date = :date and idVisiteur = :id";
+            DB::update($req,['motif'=>$motif,'libelle'=>$libelle, 'date'=>$date, 'id'=>$id]);
+        }
+
+       //public function getListeVisiteur()
+       // {
         
         /*public function getListeVisiteur(){
             $req = "Select Distinct nom, prenom,id From visiteur Inner Join fichefrais On visiteur.id = fichefrais.idVisiteur
