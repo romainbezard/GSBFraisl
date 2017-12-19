@@ -1,6 +1,5 @@
 @extends('layouts.masterComptable')
 @section('content')
-{!! Form::open(['url' => 'ModifierMontantFiche']) !!}  
     <table class="table table-bordered table-striped table-responsive">
         <h1>Fiche à validé</h1>
         <tr>
@@ -28,12 +27,14 @@
         </tr>
         @foreach($resultat as $lesInfos)
         <tr>
-            <p hidden="true">{{$total += $lesInfos->montant * $lesInfos->quantite}}</p>
-            <td>{{$lesInfos->idFraisForfait}}</td>
-            <td>{{$lesInfos->quantite}}</td>
-            <td><input class="form-control" type="text" name = "montant" value="{{$lesInfos->montant}}"></td>
-            <td>{{$lesInfos->quantite * $lesInfos->montant}}</td>
-            <td><button type="submit"><span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir"></span></button></td>
+            {!! Form::open(['url' => 'ModifierMontantFiche']) !!}  
+                <p hidden="true">{{$total += $lesInfos->montant * $lesInfos->quantite}}</p>
+                <td><input type="text" name="idModifier" readonly="true" value="{{$lesInfos->idFraisForfait}}"></td>
+                <td>{{$lesInfos->quantite}}</td>
+                <td><input class="form-control" type="text" name = "montant" value="{{$lesInfos->montant}}" pattern="[0-9].{0,5}" title="Seulement des nombres"></td>
+                <td>{{$lesInfos->quantite * $lesInfos->montant}}</td>
+                <td><button type="submit"><span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir"></span></button></td>
+            {!! Form::close() !!}
         </tr>
         @endforeach
         <tr>
@@ -59,7 +60,7 @@
             <td>{{$lesHorsForf->libelle}}</td>
             <td>{{$lesHorsForf->date}}</td>
             <td>{{$lesHorsForf->montant}}€</td>
-            <td><a href=''><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a href="{{ url('/MettreMotif')}}/{{$lesHorsForf->libelle}}/{{$id}}/{{$lesHorsForf->date}}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
         @endforeach
         <tr>
@@ -71,5 +72,4 @@
 <div style="text-align: center;">
     <a href="{{ url('/ValideFiche')}}/{{$id}}/{{$mois}}"><button class="btn btn-primary" >Valider</button></a>
 </div>
-{!! Form::close() !!}
 @stop

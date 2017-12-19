@@ -412,6 +412,16 @@ public function getInfosVisiteur($login, $mdp){
             $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
             DB::update($req,['id'=>$id, 'mois'=>$mois]);
         }
+           
+        public function ModifierFicheFrais($montant, $id){
+            $req = "update fraisforfait set montant = :montant where id = :id";
+            DB::update($req,['montant'=>$montant, 'id'=>$id]);
+        }
+        
+        public function SupprimerHorsForfait($libelle, $id, $date, $motif){
+            $req = "update lignefraishorsforfait set Suppr = 1, MotifsSuppr = :motif where libelle= :libelle and date = :date and idVisiteur = :id";
+            DB::update($req,['motif'=>$motif,'libelle'=>$libelle, 'date'=>$date, 'id'=>$id]);
+        }
 
        //public function getListeVisiteur()
        // {

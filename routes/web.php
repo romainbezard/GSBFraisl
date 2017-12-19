@@ -78,6 +78,11 @@ Route::get('/ValideFiche/{id}/{mois}','ValiderFicheFraisController@valideFiche')
 
 Route::post('/ModifierMontantFiche','ValiderFicheFraisController@modifierFiche');
 
+// Supprimer fiche frais hord forfait
+Route::get('/MettreMotif/{libelle}/{id}/{mois}','ValiderFicheFraisController@AfficherMotif');
+Route::post('/SupprimerFicheFrais', 'ValiderFicheFraisController@SupprimerFicheHorsForfait');
+Route::get('/AnnulerMotif', 'ValiderFicheFraisController@AnnuleMotif');
+
 /******************************/
 //Afficher le formulaire de modif Informations
 Route::get('/ChangeInformations', 'ChangeInformationsController@afficheformModifInformations');
