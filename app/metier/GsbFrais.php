@@ -112,12 +112,27 @@ public function getInfosVisiteur2($id){
  
  * @param $login 
  * @param $mdp
- * @return l'id, le nom et le prénom sous la forme d'un objet 
+ * @return l'id, le nom et le prénom, le statut sous la forme d'un objet 
 */
 public function getInfosVisiteur($login, $mdp){
         $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.Statut as Statut from visiteur 
         where visiteur.login=:login and visiteur.mdp=:mdp";
         $ligne = DB::select($req, ['login'=>$login, 'mdp'=>$mdp]);
+        return $ligne;
+}
+
+/**
+ * Retourne les informations d'un visiteur et vérifie son mot de passe
+ 
+ * @param $login 
+ * @param $mdp
+ * @return l'id, le nom et le prénom, le statut sous la forme d'un objet 
+*/
+public function verifMdp($login, $mdp){
+        $mdphash = md5($mdp);
+        $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.Statut as Statut from visiteur 
+        where visiteur.login=:login and visiteur.mdp=:mdp";
+        $ligne = DB::select($req, ['login'=>$login, 'mdp'=>$mdphash]);
         return $ligne;
 }
 /**
@@ -391,8 +406,9 @@ public function getInfosVisiteur($login, $mdp){
 	}
         
         public function setNouveauMdp($mdp, $login){
+            $mdphash = md5($mdp);
             $req = "update visiteur set mdp=:mdp where login = :login";
-            DB::update($req,['mdp'=>$mdp, 'login'=>$login]);
+            DB::update($req,['mdp'=>$mdphash, 'login'=>$login]);
         }
         
 /*

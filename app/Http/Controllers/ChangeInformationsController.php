@@ -54,7 +54,7 @@ class ChangeInformationsController extends Controller
             $pwd->modifVille($id, $ville);  
         } 
         
-        $message = "Modification(s) bien effectuée !";
+        $message = "Modification(s) bien effectuée(s) !";
         $erreur = "";
         return view('formModifInformations', compact('erreur', 'ligne', 'message'));
     }
