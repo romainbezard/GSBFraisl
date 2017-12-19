@@ -19,13 +19,14 @@ class ValiderFicheFraisController extends Controller
         return view('afficheUserEtatCloture',compact('resultat'));
     }
     
-    public function afficheFrais($id, $mois, $nbJust, $dateModif, $montantValide){
+    public function afficheFrais($id, $mois){
         $gsbFrais = new GsbFrais();
-        $resultat = $gsbFrais->getFicheVisiteur($id, $mois);
+        $resultat = $gsbFrais->getFicheForfait($id, $mois);
         $ficheHf = $gsbFrais->getFicheHfVisiteur($id, $mois);
+        $donnee = $gsbFrais->getDonnee($id, $mois);
         $total = 0;
         
-        return view('afficheFicheUser',compact('resultat','mois','id','nbJust','dateModif','montantValide', 'ficheHf','total'));
+        return view('afficheFicheUser',compact('resultat','mois','id','donnee', 'ficheHf','total'));
     }
     
     public function valideFiche($id, $mois){
@@ -33,18 +34,19 @@ class ValiderFicheFraisController extends Controller
         $gsbFrais->valideFicheFrais($id, $mois);
         Session::put('status', 'Validation effectuée');
         return redirect('/ValiderFicheFrais');
+         //return redirect()->back()->with('status','Mise à jour effectuée');
     }
     
-    public function modifierFiche(Request $request){
-        $montant = $request->input('montant');
-        $id = $request->input('idModifier');
+    public function modifierFiche(Request $request, $id, $mois){
+        $quantite = $request->input('quantite');
+        $idFrais = $request->input('idModifier');
         $gsbFrais = new GsbFrais();
-        $gsbFrais->ModifierFicheFrais($montant, $id);
-        Session::put('status', 'Modification effectuée');
-        return redirect('/ValiderFicheFrais');
+        $gsbFrais->ModifierFicheFrais($quantite, $idFrais, $mois, $id);
+        //return redirect('/ValiderFicheFrais');
+        return redirect()->back()->with('status','Mise à jour effectuée');
     }
     
-    public function SupprimerFicheHorsForfait(Request $request){
+    public function SupprimerFicheHorsForfait(Request $request, $idVisiteur, $mois){
         $libelle = $request->input('libelle');
         $date = $request->input('date');
         $id = $request->input('id');
@@ -53,16 +55,19 @@ class ValiderFicheFraisController extends Controller
         $gsbFrais = new GsbFrais();
         
         $gsbFrais->SupprimerHorsForfait($libelle, $id, $date, $motif);
-        Session::put('status', 'Suppression frais hors forfait effectuée !');
-        return redirect('/ValiderFicheFrais');
-    }
-    
-    public function AfficherMotif($libelle, $id, $date){
+        return $this->afficheFrais($idVisiteur, $mois);
         
-        return view('/MotifSuppr',compact('libelle','id','date'));
     }
     
-    public function AnnuleMotif(){
-        return redirect('/ValiderFicheFrais');
+    public function AfficherMotif(Request $request, $id, $mois){
+        
+        $libelle = $request->input('libelle');
+        $date = $request->input('date');
+        $idFiche = $request->input('idFiche');
+        return view('/MotifSuppr',compact('libelle','id','date', 'mois', 'idFiche'));
+    }
+    
+    public function AnnuleMotif($id, $mois){
+        return $this->afficheFrais($id, $mois);
     }
 }
