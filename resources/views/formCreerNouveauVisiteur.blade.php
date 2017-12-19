@@ -60,7 +60,7 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Numéro de téléphone : </label>
             <div class="col-md-6 col-md-3">
-                <input required type="text" name="numTel" class="form-control" pattern="0[1-9][0-9]{10}" placeholder="Entrez le numéro de téléphone" maxlength="10" title="Numéro de 10 chiffres commencant par un 0">
+                <input required type="text" name="numTel" class="form-control" pattern="[0-9]{10}" placeholder="Entrez le numéro de téléphone" maxlength="10" title="Numéro de 10 chiffres commencant par un 0">
             </div>
         </div>
         
