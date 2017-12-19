@@ -70,5 +70,6 @@ class ValiderFicheFraisController extends Controller
     
     public function AnnuleMotif($id, $mois){
         return $this->afficheFrais($id, $mois);
+        // Annule la suppression
     }
 }

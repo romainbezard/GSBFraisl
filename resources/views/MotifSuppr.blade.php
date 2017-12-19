@@ -2,7 +2,7 @@
 @section('content')
 <div>
         <table class="table table-bordered table-striped table-responsive">
-        <h1>Mettre motif de suprresion</h1>
+        <h1>Mettre motif de suppression</h1>
         <tr>
             <td>ID</td>
             <td>Date</td>
