@@ -51,23 +51,23 @@
         </div>
         
         <div class="form-group">
-            <label class="col-md-3 control-label">Date d'embauche (format : annee-mois-jour) : </label>
+            <label class="col-md-3 control-label">Date d'embauche (annee-mois-jour) : </label>
             <div class="col-md-6 col-md-3">
-                <input required type="text" name="dateEmbauche" class="form-control" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Entrez la date d'embauche (format : annee-mois-jour)" title="format : annee-mois-jour | ex: 1998-11-27">
+                <input required type="text" name="dateEmbauche" class="form-control" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Entrez la date d'embauche" title="format : annee-mois-jour | ex: 1998-11-27">
             </div>
         </div>         
         
         <div class="form-group">
             <label class="col-md-3 control-label">Numéro de téléphone : </label>
             <div class="col-md-6 col-md-3">
-                <input required type="number" name="numTel" class="form-control" pattern="0[1-9][0-9]{10}" placeholder="Entrez le numéro de téléphone" maxlength="10">
+                <input required type="text" name="numTel" class="form-control" pattern="0[1-9][0-9]{10}" placeholder="Entrez le numéro de téléphone" maxlength="10" title="Numéro de 10 chiffres commencant par un 0">
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-md-3 control-label">Email : </label>
             <div class="col-md-6 col-md-3">
-                <input required type="email" name="email" class="form-control" placeholder="Entrez l'email">
+                <input required type="email" name="email" class="form-control" pattern="[a-zA-Z0-9_.-]{0,100}@[a-zA-Z.]{0,50}.[a-zA-Z.]{0,50}" placeholder="Entrez l'email">
             </div>
         </div>  
         

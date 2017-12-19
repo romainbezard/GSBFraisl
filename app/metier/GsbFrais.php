@@ -112,12 +112,27 @@ public function getInfosVisiteur2($id){
  
  * @param $login 
  * @param $mdp
- * @return l'id, le nom et le prénom sous la forme d'un objet 
+ * @return l'id, le nom et le prénom, le statut sous la forme d'un objet 
 */
 public function getInfosVisiteur($login, $mdp){
         $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.Statut as Statut from visiteur 
         where visiteur.login=:login and visiteur.mdp=:mdp";
         $ligne = DB::select($req, ['login'=>$login, 'mdp'=>$mdp]);
+        return $ligne;
+}
+
+/**
+ * Retourne les informations d'un visiteur et vérifie son mot de passe
+ 
+ * @param $login 
+ * @param $mdp
+ * @return l'id, le nom et le prénom, le statut sous la forme d'un objet 
+*/
+public function verifMdp($login, $mdp){
+        $mdphash = md5($mdp);
+        $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.Statut as Statut from visiteur 
+        where visiteur.login=:login and visiteur.mdp=:mdp";
+        $ligne = DB::select($req, ['login'=>$login, 'mdp'=>$mdphash]);
         return $ligne;
 }
 /**
@@ -391,8 +406,9 @@ public function getInfosVisiteur($login, $mdp){
 	}
         
         public function setNouveauMdp($mdp, $login){
+            $mdphash = md5($mdp);
             $req = "update visiteur set mdp=:mdp where login = :login";
-            DB::update($req,['mdp'=>$mdp, 'login'=>$login]);
+            DB::update($req,['mdp'=>$mdphash, 'login'=>$login]);
         }
         
 /*
@@ -400,13 +416,15 @@ public function getInfosVisiteur($login, $mdp){
  */
         
         public function getVisiteurEtatCloture($etat){
-            $req = "select idVisiteur, nom, prenom, mois, montantValide, nbJustificatifs, dateModif "
-                    . "from visiteur inner join fichefrais on visiteur.id = fichefrais.idVisiteur "
+            $req = "select idVisiteur, mois, nom, prenom, montantValide"
+                    . " from visiteur inner join fichefrais on visiteur.id = fichefrais.idVisiteur "
                     . "where idEtat = :etat order by nom ASC";
             $lesLignes = DB::select($req,['etat'=>$etat]);
             return $lesLignes;
         }
         
+        public function getFicheForfait($id, $mois){
+            $req = "select idVisiteur,quantite, idFraisForfait, montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
         public function getFicheActuel($id, $mois){
             $req = "select * from fichefrais inner join visiteur on fichefrais.idVisiteur = visiteur.id where idVisiteur = :id and mois = :mois";
             $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
@@ -427,7 +445,7 @@ public function getInfosVisiteur($login, $mdp){
         }
         
         public function getFicheHfVisiteur($id, $mois){
-        $req = "select libelle, date, montant from lignefraishorsforfait where idVisiteur = :id and mois = :mois and ISNULL(Suppr)";
+        $req = "select id,libelle, date, montant from lignefraishorsforfait where idVisiteur = :id and mois = :mois and ISNULL(Suppr)";
         $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
         return $lesLignes;
         }
@@ -437,14 +455,21 @@ public function getInfosVisiteur($login, $mdp){
             DB::update($req,['id'=>$id, 'mois'=>$mois]);
         }
            
-        public function ModifierFicheFrais($montant, $id){
-            $req = "update fraisforfait set montant = :montant where id = :id";
-            DB::update($req,['montant'=>$montant, 'id'=>$id]);
+        public function ModifierFicheFrais($quantite, $id, $mois, $idV){
+            $req = "update lignefraisforfait set quantite = :quantite where idFraisForfait = :id and mois = :mois and idVisiteur = :idV";
+            DB::update($req,['quantite'=>$quantite, 'id'=>$id, 'mois'=>$mois, 'idV'=>$idV]);
         }
         
         public function SupprimerHorsForfait($libelle, $id, $date, $motif){
-            $req = "update lignefraishorsforfait set Suppr = 1, MotifsSuppr = :motif where libelle= :libelle and date = :date and idVisiteur = :id";
+            $req = "update lignefraishorsforfait set Suppr = 1, MotifsSuppr = :motif where libelle= :libelle and date = :date and id = :id";
             DB::update($req,['motif'=>$motif,'libelle'=>$libelle, 'date'=>$date, 'id'=>$id]);
+        }
+        
+        /* PRENDRE LES DIFFERENTE DONNEE */
+        public function getDonnee($id, $mois){
+            $req = "select nbJustificatifs, montantValide, dateModif from fichefrais where idVisiteur = :id and mois = :mois";
+            $result = DB::select($req,['id'=>$id, 'mois'=>$mois]);
+            return $result;
         }
 
        //public function getListeVisiteur()

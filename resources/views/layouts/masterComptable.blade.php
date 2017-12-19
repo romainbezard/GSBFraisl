@@ -14,7 +14,7 @@
                     <img src="./images/logo.jpg" id="logoGSB" alt="Laboratoire Galaxy-Swiss Bourdin" title="Laboratoire Galaxy-Swiss Bourdin" />
                 </div>
                 <div class="col-md-9">
-                    <h1>Gestion des frais visiteurs</h1>
+                    <h1>Gestion des frais visiteurs - Version COMPTABLE</h1>
                  </div>
             </header>
             <nav class="navbar navbar-default" role="navigation">
