@@ -23,8 +23,8 @@
                 <td> {{ $uneLigne->nbJustificatifs }} </td> 
                 <td> {{ $uneLigne->montantValide }} </td> 
                 <td> {{ $uneLigne->idEtat }} </td> 
-                <!--<td style="text-align:center;"><a href="{{ url('/DetailsFrais') }}/{{ $uneLigne->mois}}/{{ $uneLigne->idVisiteur }}">
-                        <span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir"></span></a></td>-->
+                <td style="text-align:center;"><a href="{{ url('/DetailsFicheVisiteur') }}/{{ $uneLigne->mois}}/{{ $uneLigne->idVisiteur }}">
+                        <span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir"></span></a></td>
             </tr>
             @endforeach
         </table>

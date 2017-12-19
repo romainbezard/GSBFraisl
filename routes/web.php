@@ -97,9 +97,14 @@ Route ::get('/creerNouveauVisiteur', 'CreerVisiteurController@afficheformCreerVi
 //Créer un nouveau visiteur (Comptable)
 Route::post('/creerNouveauVisiteur', 'CreerVisiteurController@creerUnNouveauVisiteur');
 
+
 //Suivre fiche frais (Charles)
 //Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
 Route::get('/SuivreFicheFrais','SuivreFicheFraisController@getFichesVisiteur');
 Route::post('/SuivreFicheFrais','SuivreFicheFraisController@getFichesVisiteur');
 
+
+//Details Fiche Visiteur Comptable
+Route::get('/DetailsFicheVisiteur/{mois}/{idVisiteur}','DetailsFicheVisiteurController@DetailsFicheFrais');
+Route::post('/DetailsFicheVisiteur/{mois}/{idVisiteur}','DetailsFicheVisiteurController@DetailsFicheFrais');
 /******************************/

@@ -141,6 +141,17 @@ public function getInfosVisiteur($login, $mdp){
 //            }
             return $lesLignes; 
 	}
+        
+        public function getLesFraisHorsForfaitSuppr($idVisiteur,$mois){
+	    $req = "select * from lignefraishorsforfait where lignefraishorsforfait.idvisiteur =:idVisiteur 
+		and lignefraishorsforfait.mois = :mois and Suppr != null";	
+            $lesLignes = DB::select($req, ['idVisiteur'=>$idVisiteur, 'mois'=>$mois]);
+//            for ($i=0; $i<$nbLignes; $i++){
+//                    $date = $lesLignes[$i]['date'];
+//                    $lesLignes[$i]['date'] =  dateAnglaisVersFrancais($date);
+//            }
+            return $lesLignes; 
+	}
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
  * concernées par les deux arguments
@@ -397,7 +408,7 @@ public function getInfosVisiteur($login, $mdp){
         }
         
         public function getFicheVisiteur($id, $mois){
-            $req = "select quantite, idFraisForfait, montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
+            $req = "select idVisiteur,quantite, idFraisForfait, montant from lignefraisforfait inner join fraisforfait on lignefraisforfait.idFraisForfait = fraisforfait.id where idVisiteur = :id and mois = :mois";
             $lesLignes = DB::select($req,['id'=>$id, 'mois'=>$mois]);
             return $lesLignes;
         }
@@ -412,8 +423,6 @@ public function getInfosVisiteur($login, $mdp){
             $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
             DB::update($req,['id'=>$id, 'mois'=>$mois]);
         }
-        public function getListeVisiteur()
-        {
         
         /*public function getListeVisiteur(){
             $req = "Select Distinct nom, prenom,id From visiteur Inner Join fichefrais On visiteur.id = fichefrais.idVisiteur
@@ -437,13 +446,20 @@ public function getInfosVisiteur($login, $mdp){
             
             return $ListeFiches;
         }
-
-        public function getDetailFiches($mois,$idVisiteur)
+        
+        
+        public function getDetailFichesForfait($mois,$idVisiteur)
         {
-            $req = "Select * From lignefraisforfait lignefraishorsforfait  where mois = :mois and idVisiteur = :visiteur";
-            $ListeFrais = DB::select($req, ['mois'=>$mois,'visiteur'=>$idVisiteur]);
-            return $ListeFrais;
+            $req = "Select * From lignefraisforfait   where mois = :mois and idVisiteur = :visiteur";
+            $Fiche = DB::select($req, ['mois'=>$mois,'visiteur'=>$idVisiteur]);
+            return $Fiche;
         }
         
+        public function getDetailFichesHorsForfait($mois,$idVisiteur)
+        {
+            $req = "Select * From lignefraishorsforfait   where mois = :mois and idVisiteur = :visiteur";
+            $Fiche = DB::select($req, ['mois'=>$mois,'visiteur'=>$idVisiteur]);
+            return $Fiche;
+        }
 }
 

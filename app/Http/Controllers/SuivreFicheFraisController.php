@@ -32,4 +32,6 @@ class SuivreFicheFraisController extends Controller
         return view('suivreFraisComptable',  compact('ListeFiches','erreur'));
     }
 
+
+    
 }

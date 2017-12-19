@@ -41,6 +41,33 @@
                 <td>{{$montantTotal}}</td>
             </tr>
         </table>
+        
+        <h3>Liste des frais hors forfait Supprimés</h3>
+        <table class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>Libellé</th> 
+                    <th>Date</th> 
+                    <th>Montant</th>
+                    <th>Motif</th>
+                </tr>
+            </thead>
+            @foreach($lesFraisHorsForfaitSuppr as $unFHFS)
+            <tr>   
+                <td> {{ $unFHFS->libelle }} </td> 
+                <td> {{ $unFHFS->date }} </td> 
+                <td> {{ $unFHFS->montant }} </td>
+                <td> {{ $unFHFS->MotifsSuppr }} </td>
+            </tr>
+            @endforeach
+            <tr>
+                <td style="text-align: right"> Montant total :</td>
+                <td>{{$montantTotal}}</td>
+            </tr>
+        </table>
+        
+        
+        
         <div class="form-group">
             <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                 <a href="{{ url('/getListeFrais')}}" ><button type="button" class="btn btn-default btn-primary" >Retour</button></a>                
