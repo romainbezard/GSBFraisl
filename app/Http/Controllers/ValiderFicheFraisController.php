@@ -37,11 +37,11 @@ class ValiderFicheFraisController extends Controller
          //return redirect()->back()->with('status','Mise à jour effectuée');
     }
     
-    public function modifierFiche(Request $request){
-        $montant = $request->input('montant');
-        $id = $request->input('idModifier');
+    public function modifierFiche(Request $request, $id, $mois){
+        $quantite = $request->input('quantite');
+        $idFrais = $request->input('idModifier');
         $gsbFrais = new GsbFrais();
-        $gsbFrais->ModifierFicheFrais($montant, $id);
+        $gsbFrais->ModifierFicheFrais($quantite, $idFrais, $mois, $id);
         //return redirect('/ValiderFicheFrais');
         return redirect()->back()->with('status','Mise à jour effectuée');
     }

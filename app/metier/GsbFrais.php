@@ -424,9 +424,9 @@ public function getInfosVisiteur($login, $mdp){
             DB::update($req,['id'=>$id, 'mois'=>$mois]);
         }
            
-        public function ModifierFicheFrais($montant, $id){
-            $req = "update fraisforfait set montant = :montant where id = :id";
-            DB::update($req,['montant'=>$montant, 'id'=>$id]);
+        public function ModifierFicheFrais($quantite, $id, $mois, $idV){
+            $req = "update lignefraisforfait set quantite = :quantite where idFraisForfait = :id and mois = :mois and idVisiteur = :idV";
+            DB::update($req,['quantite'=>$quantite, 'id'=>$id, 'mois'=>$mois, 'idV'=>$idV]);
         }
         
         public function SupprimerHorsForfait($libelle, $id, $date, $motif){

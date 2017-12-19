@@ -29,11 +29,11 @@
         </tr>
         @foreach($resultat as $lesInfos)
         <tr>
-            {!! Form::open(['url' => 'ModifierMontantFiche']) !!}  
+            {!! Form::open(['url' => 'ModifierMontantFiche/' . $id . '/' . $mois]) !!}  
                 <p hidden="true">{{$total += $lesInfos->montant * $lesInfos->quantite}}</p>
                 <td><input type="text" name="idModifier" readonly="true" value="{{$lesInfos->idFraisForfait}}"></td>
-                <td>{{$lesInfos->quantite}}</td>
-                <td><input class="form-control" type="text" name = "montant" value="{{$lesInfos->montant}}" pattern="[0-9].{0,5}" title="Seulement des nombres"></td>
+                <td><input class="form-control" type="text" name = "quantite" value="{{$lesInfos->quantite}}" pattern="[0-9].{0,5}" title="Seulement des nombres"></td>
+                <td>{{$lesInfos->montant}}</td>
                 <td>{{$lesInfos->quantite * $lesInfos->montant}}</td>
                 <td><button type="submit"><span class="glyphicon glyphicon-eye-open" data-toggle="tooltip" data-placement="top" title="Voir"></span></button></td>
             {!! Form::close() !!}
