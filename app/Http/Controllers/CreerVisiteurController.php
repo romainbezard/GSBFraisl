@@ -40,18 +40,14 @@ class CreerVisiteurController extends Controller
         $email = $request->input('email');
         
         $erreur = "";
-        /*$lesIds = $pwd->getLesId();
-        foreach($lesIds as $v)
+        $boolVisiteur = $pwd->existVisiteur($id);
+        if(empty($boolVisiteur))
         {
-            if($v->id == $id) {
-               $message = "Le visiteur existe déjà!";
-               $erreur = "ERREUR";
-            } else 
-            {*/
-                $pwd->ajouterVisiteur($id, $nom, $prenom, $login, $mdpmd5, $adresse, $codePostal, $ville, $dateEmbauche, $numTel, $email);
-                $message="Votre visiteur a bien été ajouté avec le login et le mot de passe suivant ; LOGIN : " . $login . " | MOT DE PASSE : " . $mdp;
-            /*}
-        } */
+            $pwd->ajouterVisiteur($id, $nom, $prenom, $login, $mdpmd5, $adresse, $codePostal, $ville, $dateEmbauche, $numTel, $email);
+            $message="Votre visiteur a bien été ajouté avec le login et le mot de passe suivant ; LOGIN : " . $login . " | MOT DE PASSE : " . $mdp;
+        } else {
+            $message = "Le visiteur existe déjà!";
+        }
         return view('formCreerNouveauVisiteur', compact('message', 'erreur'));
     }
     

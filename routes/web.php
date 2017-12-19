@@ -74,6 +74,10 @@ Route::get('/AfficheFicheUser/{id}/{mois}/{nbJust}/{dateModif}/{montantValide}',
 // Valide fiche frais
 Route::get('/ValideFiche/{id}/{mois}','ValiderFicheFraisController@valideFiche');
 
+// Modifier montant fiche frais
+
+Route::post('/ModifierMontantFiche','ValiderFicheFraisController@modifierFiche');
+
 /******************************/
 //Afficher le formulaire de modif Informations
 Route::get('/ChangeInformations', 'ChangeInformationsController@afficheformModifInformations');
@@ -94,7 +98,8 @@ Route ::get('/creerNouveauVisiteur', 'CreerVisiteurController@afficheformCreerVi
 Route::post('/creerNouveauVisiteur', 'CreerVisiteurController@creerUnNouveauVisiteur');
 
 //Suivre fiche frais (Charles)
-Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
-Route::post('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
+//Route::get('/SuivreFicheFrais','SuivreFicheFraisController@afficherformSuivreficheFrais');
+Route::get('/SuivreFicheFrais','SuivreFicheFraisController@getFichesVisiteur');
+Route::post('/SuivreFicheFrais','SuivreFicheFraisController@getFichesVisiteur');
 
 /******************************/

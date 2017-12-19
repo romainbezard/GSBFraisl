@@ -3,68 +3,71 @@
 {!! Form::open(['url' => 'creerNouveauVisiteur']) !!}  
 <div class="col-md-12 well well-md">
     <center><h1>Création d'un visiteur</h1></center>
+         @if ($message!="") 
+            <h3 style="color: red">{{$message}}</h3>
+         @endif
     <div class="form-horizontal">    
         
         <div class="form-group">
             <label class="col-md-3 control-label">Id : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="id" class="form-control" placeholder="Entrez l'id" maxlength="4" title="Doit avoir 4 caractères maximum.">
+                <input required type="text" name="id" class="form-control" placeholder="Entrez l'id" maxlength="4" pattern="[a-zA-Z0-9]{1,4}" title="Doit avoir 4 caractères maximum.">
             </div>
         </div> 
         
         <div class="form-group">
             <label class="col-md-3 control-label">Nom : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="nom" class="form-control" placeholder="Entrez le nom">
+                <input required type="text" name="nom" class="form-control" placeholder="Entrez le nom" pattern="[A-Za-z]{1,50}" title="Seulement des caractères alphabétiques">
             </div>
         </div>         
         
         <div class="form-group">
             <label class="col-md-3 control-label">Prénom : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="prenom" class="form-control" placeholder="Entrez le prenom">
+                <input required type="text" name="prenom" class="form-control" placeholder="Entrez le prenom" pattern="[a-zA-Z]{1,50}" title="Seulement des caractères alphabétiques">
             </div>
         </div>                  
         
         <div class="form-group">
             <label class="col-md-3 control-label">Adresse : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="adresse" class="form-control" placeholder="Entrez l'adresse">
+                <input required type="text" name="adresse" class="form-control" placeholder="Entrez l'adresse">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-3 control-label">Code Postal : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="codePostal" class="form-control" placeholder="Entrez le code postal"  maxlength="5" pattern="[0-9]{5}" title="Code de 5 chiffres">
+                <input required type="text" name="codePostal" class="form-control" placeholder="Entrez le code postal"  maxlength="5" pattern="[0-9]{5}" title="Code de 5 chiffres">
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-md-3 control-label">Ville : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="ville" class="form-control" placeholder="Entrez la ville">
+                <input required type="text" name="ville" class="form-control" pattern="[a-zA-Z ]{1,50}" title="Seulement des caractères alphabétiques" placeholder="Entrez la ville">
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-md-3 control-label">Date d'embauche (format : annee-mois-jour) : </label>
             <div class="col-md-6 col-md-3">
-                <input type="text" name="dateEmbauche" class="form-control" placeholder="Entrez la date d'embauche">
+                <input required type="text" name="dateEmbauche" class="form-control" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="Entrez la date d'embauche (format : annee-mois-jour)" title="format : annee-mois-jour | ex: 1998-11-27">
             </div>
         </div>         
         
         <div class="form-group">
             <label class="col-md-3 control-label">Numéro de téléphone : </label>
             <div class="col-md-6 col-md-3">
-                <input type="number" name="numTel" class="form-control" placeholder="Entrez le numéro de téléphone" maxlength="10">
+                <input required type="number" name="numTel" class="form-control" pattern="0[1-9][0-9]{10}" placeholder="Entrez le numéro de téléphone" maxlength="10">
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-md-3 control-label">Email : </label>
             <div class="col-md-6 col-md-3">
-                <input type="email" name="email" class="form-control" placeholder="Entrez l'email">
+                <input required type="email" name="email" class="form-control" placeholder="Entrez l'email">
             </div>
         </div>  
         
@@ -75,9 +78,6 @@
                 <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
             </div>
         </div>
-         @if ($message!="") 
-            <h3>{{$message}}</h3>
-         @endif
         <div class="col-md-6 col-md-offset-3">
         </div>
     </div>
