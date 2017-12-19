@@ -410,7 +410,7 @@ public function getInfosVisiteur($login, $mdp){
         
         public function valideFicheFrais($id, $mois){
             $req = "update fichefrais set idEtat = 'VA', dateModif= now() where idVisiteur = :id and mois = :mois";
-            DB::update($req,['id'=>$id, 'mois'=>$mois]);
+        DB::update($req,['id'=>$id, 'mois'=>$mois]);}
         public function getListeVisiteur()
         {
             $req = "Select Distinct nom, prenom,id From visiteur Inner Join fichefrais On visiteur.id = fichefrais.idVisiteur
